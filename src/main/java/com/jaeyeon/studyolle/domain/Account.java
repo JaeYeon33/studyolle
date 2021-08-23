@@ -24,6 +24,7 @@ public class Account {
 
     private boolean emailVerified;
     private String emailCheckToken; // 이메일 검증 토큰값
+    private LocalDateTime emailCheckTokenGeneratedAt;
     private LocalDateTime joinedAt; // 인증 거친 사용자 가입기록
 
     // 프로필 관련 정보
@@ -45,5 +46,21 @@ public class Account {
 
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+    }
+
+    public void completeSignUp() {
+//        account.setEmailVerified(true);            // 이메일 인증 True
+        this.emailVerified = true;
+//        account.setJoinedAt(LocalDateTime.now()); // 이메일 가입 날짜
+        this.joinedAt = LocalDateTime.now();
+    }
+
+    public boolean isValidToken(String token) {
+        return this.emailCheckToken.equals(token);
+    }
+
+    public boolean canSendConfirmEmail() {
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
     }
 }

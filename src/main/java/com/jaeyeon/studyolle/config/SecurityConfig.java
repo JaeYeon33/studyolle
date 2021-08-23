@@ -16,10 +16,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/login", "sign-up", "/check-email", "check-email-token",
+                .mvcMatchers("/", "/login", "sign-up", "check-email-token",
                          "email-login", "/check-email-login", "login-link").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated();
+
+        // 커스턺 로그인 페이지
+        http.formLogin()
+                .loginPage("/login").permitAll();
+
+        // 커스텀 로그아웃 페이지
+        http.logout()
+                .logoutSuccessUrl("/");
 
     }
 
@@ -27,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
+                .mvcMatchers("/node_modules/**")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }

@@ -50,9 +50,7 @@ public class Account {
     }
 
     public void completeSignUp() {
-//        account.setEmailVerified(true);            // 이메일 인증 True
         this.emailVerified = true;
-//        account.setJoinedAt(LocalDateTime.now()); // 이메일 가입 날짜
         this.joinedAt = LocalDateTime.now();
     }
 

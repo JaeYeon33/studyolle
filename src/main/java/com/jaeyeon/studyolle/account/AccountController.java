@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -45,6 +46,7 @@ public class AccountController {
 
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
+        // 입력받느 이메일에 대한 유저가 있는지 확인
         Account account = accountRepository.findByEmail(email);
         String view = "account/checked-email";
         if (account == null) {
@@ -52,13 +54,14 @@ public class AccountController {
             return view;
         }
 
+        // 이메일은 있지만 토큰 값이 다른지 확인
         if (!account.isValidToken(token)) {
             model.addAttribute("error", "wrong.token");
             return view;
         }
-
-        account.completeSignUp();
-        accountService.login(account);
+//      account.completeSignUp();               // 삭제
+//      accountService.login(account);          // 삭제
+        accountService.completeSignUp(account); // 추가
         model.addAttribute("numberOfUser", accountRepository.count());
         model.addAttribute("nickname", account.getNickname());
         return view;                              // cmd + op + v
@@ -80,5 +83,18 @@ public class AccountController {
 
         accountService.sendSignUpConfirmEmail(account);
         return "redirect:/";
+    }
+
+    @GetMapping("/profile/{nickname}")
+    public String viewProfile(@PathVariable String nickname, Model model, @CurrentUser Account account) {
+        Account byNickname = accountRepository.findByNickname(nickname);
+        if (nickname == null) {
+            throw new  IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
+        }
+
+        // byNickname 의 상위타입의 이름이 camel_case 로 key 값이 설정된다.
+        model.addAttribute(byNickname);
+        model.addAttribute("isOwner", byNickname.equals(account));
+        return "account/profile";
     }
 }

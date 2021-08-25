@@ -1,5 +1,6 @@
-package com.jaeyeon.studyolle.account.settings;
+package com.jaeyeon.studyolle.account.settings.validator;
 
+import com.jaeyeon.studyolle.account.settings.form.PasswordForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

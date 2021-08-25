@@ -1,4 +1,4 @@
-package com.jaeyeon.studyolle.account.settings;
+package com.jaeyeon.studyolle.account.settings.form;
 
 import com.jaeyeon.studyolle.domain.Account;
 import lombok.Data;
@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
  * setting form 을 채울 Data (DTO)
  */
 @Data
-@NoArgsConstructor
 public class Profile {
 
     @Length(max = 35)
@@ -25,12 +24,4 @@ public class Profile {
     private String location;
 
     private String profileImage;
-
-    public Profile(Account account) {
-        this.bio = account.getBio();
-        this.url = account.getUrl();
-        this.occupation = account.getOccupation();
-        this.location = account.getLocation();
-        this.profileImage = account.getProfileImage();
-    }
 }

@@ -19,16 +19,18 @@ public class SignUpFormValidator implements Validator {
 
     @Override
     public void validate(Object object, Errors errors) {
-        // TODO email, nickname
+//      SignUpForm signUpForm = (SignUpForm) errors; 에러발생
+//      errors가 아닌 첫번째 파라미터(Object)를 SignUpForm으로 변환
         SignUpForm signUpForm = (SignUpForm) object;
-        if (accountRepository.existsByEmail(signUpForm.getEmail())) {
-            errors.rejectValue("email", "invalid.email", new Object[]{signUpForm.getEmail()},
-                    "이미 사용중인 이메일 입니다.");
+
+        if (accountRepository.existsByEmail(signUpForm.getEmail())){
+            errors.rejectValue("email", "invalid.email"
+                    , new Object[]{signUpForm.getEmail()}, "이메일이 이미 존재합니다");
         }
 
-        if (accountRepository.existsByNickname(signUpForm.getNickname())) {
-            errors.rejectValue("nickname", "invalid.nickname", new Object[]{signUpForm.getNickname()},
-                    "이미 사용중인 닉네임 입니다.");
+        if (accountRepository.existsByNickname(signUpForm.getNickname())){
+            errors.rejectValue("nickname", "invalid.nickname"
+                    , new Object[]{signUpForm.getNickname()}, "이미 사용중인 닉네임입니다.");
         }
     }
 }

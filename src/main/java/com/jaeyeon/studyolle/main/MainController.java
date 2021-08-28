@@ -1,7 +1,9 @@
 package com.jaeyeon.studyolle.main;
 
+import com.jaeyeon.studyolle.account.AccountService;
 import com.jaeyeon.studyolle.account.CurrentUser;
 import com.jaeyeon.studyolle.domain.Account;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String home(@CurrentUser Account account, Model model) {
-        if (account != null) {
+    public String home(@CurrentUser Account account, Model model){
+        if (account != null){
             model.addAttribute(account);
         }
 

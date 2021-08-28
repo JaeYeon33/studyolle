@@ -3,16 +3,19 @@ package com.jaeyeon.studyolle.account;
 
 import com.jaeyeon.studyolle.domain.Account;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.Collection;
 import java.util.List;
 
+/**
+ * SpringSecurity 가 다루는 유저정보와
+ * Domain 에서 다루는 유저정보를 연결해주는 어댑터 역할
+ */
 @Getter
 public class UserAccount extends User {
 
+    // currentUser account 와 일치
     private Account account;
 
     public UserAccount(Account account) {

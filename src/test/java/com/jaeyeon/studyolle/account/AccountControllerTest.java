@@ -84,9 +84,9 @@ class AccountControllerTest {
     @DisplayName("회원 가입 처리 - 입력값 오류")
     void signUpSubmit_with_wrong_input() throws Exception {
         mockMvc.perform(post("/sign-up")
-                .param("nickname", "jaeyeon")
-                .param("email", "email..")
-                .param("password", "12345").with(csrf()))
+                        .param("nickname", "jaeyeon")
+                        .param("email", "email..")
+                        .param("password", "12345").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("account/sign-up"))
                 .andExpect(unauthenticated());

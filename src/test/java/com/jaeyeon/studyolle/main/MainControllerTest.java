@@ -1,8 +1,8 @@
 package com.jaeyeon.studyolle.main;
 
-import com.jaeyeon.studyolle.account.AccountRepository;
-import com.jaeyeon.studyolle.account.AccountService;
-import com.jaeyeon.studyolle.account.SignUpForm;
+import com.jaeyeon.studyolle.account.account.AccountRepository;
+import com.jaeyeon.studyolle.account.account.AccountService;
+import com.jaeyeon.studyolle.account.account.form.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

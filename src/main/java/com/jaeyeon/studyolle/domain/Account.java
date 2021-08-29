@@ -4,11 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Getter @Setter
-@EqualsAndHashCode(of ="id")
+@EqualsAndHashCode(of = "id")
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Account {
 
@@ -45,7 +48,9 @@ public class Account {
     private boolean studyUpdatedByEmail;
     private boolean studyUpdatedByWeb = true;
 
-    // 이메일 인증 토큰 램덤 생성
+    @ManyToMany
+    private Set<Tag> tags = new HashSet<>();
+
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();

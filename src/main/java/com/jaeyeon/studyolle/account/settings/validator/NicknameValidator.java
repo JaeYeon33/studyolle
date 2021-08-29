@@ -1,6 +1,6 @@
 package com.jaeyeon.studyolle.account.settings.validator;
 
-import com.jaeyeon.studyolle.account.AccountRepository;
+import com.jaeyeon.studyolle.account.account.AccountRepository;
 import com.jaeyeon.studyolle.account.settings.form.NicknameForm;
 import com.jaeyeon.studyolle.domain.Account;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,7 @@ public class NicknameValidator implements Validator {
         NicknameForm nicknameForm = (NicknameForm) target;
         Account byNickname = accountRepository.findByNickname(nicknameForm.getNickname());
         if (byNickname != null) {
-            errors.rejectValue("nickname", "wrong.nickname", "입력하신 닉네임은 사용할 수 없습니다.");
+            errors.rejectValue("nickname", "wrong.value", "입력하신 닉네임을 사용할 수 없습니다.");
         }
-
     }
 }

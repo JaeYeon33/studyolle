@@ -1,4 +1,4 @@
-package com.jaeyeon.studyolle.account;
+package com.jaeyeon.studyolle.account.account;
 
 
 import com.jaeyeon.studyolle.domain.Account;

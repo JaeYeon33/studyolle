@@ -1,4 +1,4 @@
-package com.jaeyeon.studyolle.account;
+package com.jaeyeon.studyolle.account.account;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

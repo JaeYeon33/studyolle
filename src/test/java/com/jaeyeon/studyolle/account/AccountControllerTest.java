@@ -2,6 +2,8 @@ package com.jaeyeon.studyolle.account;
 
 import com.jaeyeon.studyolle.account.account.AccountRepository;
 import com.jaeyeon.studyolle.domain.Account;
+import com.jaeyeon.studyolle.mail.EmailMessage;
+import com.jaeyeon.studyolle.mail.EmailService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AccountControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @Autowired
-    AccountRepository accountRepository;
-    @MockBean JavaMailSender javaMailSender;
+    @Autowired AccountRepository accountRepository;
+    @MockBean EmailService emailService;
 
 
     @Test
@@ -109,7 +110,7 @@ class AccountControllerTest {
         assertNotNull(account);
         assertNotEquals(account.getPassword(), "12345678");
         assertNotNull(account.getEmailCheckToken());
-        then(javaMailSender).should().send(any(SimpleMailMessage.class));
+        then(emailService).should().sendEmail(any(EmailMessage.class));
     }
 
 }

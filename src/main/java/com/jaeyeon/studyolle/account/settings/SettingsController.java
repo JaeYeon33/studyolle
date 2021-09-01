@@ -11,6 +11,7 @@ import com.jaeyeon.studyolle.domain.Account;
 import com.jaeyeon.studyolle.domain.Tag;
 import com.jaeyeon.studyolle.domain.Zone;
 import com.jaeyeon.studyolle.tag.TagRepository;
+import com.jaeyeon.studyolle.tag.TagService;
 import com.jaeyeon.studyolle.zone.ZoneForm;
 import com.jaeyeon.studyolle.zone.ZoneRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ public class SettingsController {
     static final String ZONES = "/zones";
 
     private final AccountService accountService;
+    private final TagService tagService;
     private final ModelMapper modelMapper;
     private final NicknameValidator nicknameValidator;
     private final TagRepository tagRepository;
@@ -175,14 +177,7 @@ public class SettingsController {
     @PostMapping(TAGS + "/add")
     @ResponseBody
     public ResponseEntity addTag(@CurrentUser Account account, @RequestBody TagForm tagForm) {
-
-        String title = tagForm.getTagTitle();
-
-        Tag tag = tagRepository.findByTitle(title);
-        if (tag == null) {
-            tag = tagRepository.save(Tag.builder().title(title).build());
-        }
-
+        Tag tag = tagService.findOrCreateNew(tagForm.getTagTitle());
         accountService.addTag(account, tag);
         return ResponseEntity.ok().build();
     }

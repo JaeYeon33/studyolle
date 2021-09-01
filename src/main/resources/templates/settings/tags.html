@@ -27,53 +27,6 @@
     </div>
 </div>
 <script th:replace="fragments.html :: ajax-csrf-header"></script>
-<script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
-<script type="application/javascript">
-    $(function () {
-        function tagRequest(url, tagTitle) {
-            $.ajax({
-                dataType    : "json",
-                autoComplete: {
-                    enabled : true,
-                    rightKey: true
-                },
-                contentType : "application/json; charset=utf-8",
-                method      : "POST",
-                // URL에는 ADD, REMOVE 등이 들어갈 것임
-                url : "/settings/tags" + url,
-                data: JSON.stringify({'tagTitle': tagTitle})
-            }).done(function (data, status) {
-                console.log(`${data} and status is ${status}`);
-            });
-        }
-
-        function onAdd(e) {
-            console.log(e);
-            tagRequest("/add", e.detail.data.value);
-        }
-
-        function onRemove(e) {
-            tagRequest("/remove", e.detail.data.value);
-        }
-
-        let tagInput = document.querySelector("#tags");
-
-        let tagify = new Tagify(tagInput, {
-            pattern : /^.{0,20}$/,
-            whitelist : JSON.parse(document.querySelector("#whitelist").textContent),
-            dropdown: {
-                enabled: 1 // 한글자 치면 추천 태그를 띄워줌
-            } // 맵 태그들
-        });
-
-        tagify.on("add", onAdd);
-        tagify.on("remove", onRemove);
-
-        // Tagify 의 input 박스에 클래스 추가
-        tagify.DOM.input.classList.add('form-control');
-        // Tagify의 input 요소를엘리먼트의 밖(tagify.DOM.scope)으로, 하기 바로 전에
-        tagify.DOM.scope.parentNode.insertBefore(tagify.DOM.input, tagify.DOM.scope);
-    });
-</script>
+<script th:replace="fragments.html :: update-tags(baseUrl='/settings/tags')"></script>
 </body>
 </html>

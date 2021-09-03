@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NamedEntityGraph(
         name = "Event.withEnrollments",
@@ -65,7 +66,7 @@ public class Event {
     public boolean isAttended(UserAccount userAccount) {
         Account account = userAccount.getAccount();
         for (Enrollment e : this.enrollments) {
-            if (e.getAccount().equals(account) && e.isAttend()) {
+            if (e.getAccount().equals(account) && e.isAttended()) {
                 return true;
             }
         }
@@ -90,5 +91,65 @@ public class Event {
 
     public long getNumberOfAcceptedEnrollments() {
         return this.enrollments.stream().filter(Enrollment::isAccepted).count();
+    }
+
+    public boolean canAccept(Enrollment enrollment) {
+        return this.eventType == EventType.CONFIRMATIVE
+                && this.enrollments.contains(enrollment)
+                && !enrollment.isAttended()
+                && !enrollment.isAccepted();
+    }
+
+    public boolean canReject(Enrollment enrollment) {
+        return this.eventType == EventType.CONFIRMATIVE
+                && this.enrollments.contains(enrollment)
+                && !enrollment.isAttended()
+                && enrollment.isAccepted();
+    }
+
+    public boolean isAbleToAcceptWaitingEnrollment() {
+        return this.eventType == EventType.FCFS && this.limitOfEnrollments > this.getNumberOfAcceptedEnrollments();
+    }
+
+    public void addEnrollment(Enrollment enrollment) {
+        this.enrollments.add(enrollment);
+        enrollment.setEvent(this);
+    }
+
+    public void removeEnrollment(Enrollment enrollment) {
+        this.enrollments.remove(enrollment);
+        enrollment.setEvent(null);
+    }
+
+    private Enrollment getTheFirstWaitingEnrollment() {
+        for (Enrollment e : this.enrollments) {
+            if (!e.isAccepted()) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
+    public void acceptNextWaitingEnrollment() {
+        if (this.isAbleToAcceptWaitingEnrollment()) {
+            Enrollment enrollmentAccept = this.getTheFirstWaitingEnrollment();
+            if (enrollmentAccept != null) {
+                enrollmentAccept.setAccepted(true);
+            }
+        }
+    }
+
+
+    public void acceptWaitingList() {
+        if (this.isAbleToAcceptWaitingEnrollment()) {
+            var waitingList = getWaitingList();
+            int numberToAccount = (int) Math.min(this.limitOfEnrollments - this.getNumberOfAcceptedEnrollments(), waitingList.size());
+            waitingList.subList(0, numberToAccount).forEach(e -> e.setAccepted(true));
+        }
+    }
+
+    private List<Enrollment> getWaitingList() {
+        return this.enrollments.stream().filter(enrollment -> !enrollment.isAccepted()).collect(Collectors.toList());
     }
 }

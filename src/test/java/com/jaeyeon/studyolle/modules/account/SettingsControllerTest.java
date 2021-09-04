@@ -1,6 +1,7 @@
 package com.jaeyeon.studyolle.modules.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jaeyeon.studyolle.infra.AbstractContainerBaseTest;
 import com.jaeyeon.studyolle.infra.MockMvcTest;
 import com.jaeyeon.studyolle.modules.account.account.form.TagForm;
 import com.jaeyeon.studyolle.modules.tag.Tag;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @MockMvcTest
-class SettingsControllerTest {
+class SettingsControllerTest extends AbstractContainerBaseTest {
 
     @Autowired MockMvc mockMvc;
     @Autowired AccountRepository accountRepository;

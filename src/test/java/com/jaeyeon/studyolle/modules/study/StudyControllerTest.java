@@ -1,5 +1,6 @@
 package com.jaeyeon.studyolle.modules.study;
 
+import com.jaeyeon.studyolle.infra.AbstractContainerBaseTest;
 import com.jaeyeon.studyolle.infra.MockMvcTest;
 import com.jaeyeon.studyolle.modules.account.AccountFactory;
 import com.jaeyeon.studyolle.modules.account.WithAccount;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @MockMvcTest
-public class StudyControllerTest {
+public class StudyControllerTest extends AbstractContainerBaseTest {
 
     @Autowired MockMvc mockMvc;
     @Autowired StudyService studyService;

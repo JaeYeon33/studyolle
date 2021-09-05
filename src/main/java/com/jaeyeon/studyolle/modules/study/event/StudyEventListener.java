@@ -92,8 +92,8 @@ public class StudyEventListener {
         context.setVariable("linkName", study.getTitle());
         context.setVariable("message", contextMessage);
         context.setVariable("host", appProperties.getHost());
-
         String message = templateEngine.process("mail/simple-link", context);
+
         EmailMessage emailMessage = EmailMessage.builder()
                 .subject(emailSubject)
                 .to(account.getEmail())

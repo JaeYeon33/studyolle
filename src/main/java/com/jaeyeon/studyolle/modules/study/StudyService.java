@@ -2,6 +2,7 @@ package com.jaeyeon.studyolle.modules.study;
 
 import com.jaeyeon.studyolle.modules.account.Account;
 import com.jaeyeon.studyolle.modules.study.event.StudyCreatedEvent;
+import com.jaeyeon.studyolle.modules.study.event.StudyUpdateEvent;
 import com.jaeyeon.studyolle.modules.study.form.StudyDescriptionForm;
 import com.jaeyeon.studyolle.modules.tag.Tag;
 import com.jaeyeon.studyolle.modules.zone.Zone;
@@ -57,6 +58,7 @@ public class StudyService {
 
     public void close(Study study) {
         study.close();
+        eventPublisher.publishEvent(new StudyUpdateEvent(study, "스터디를 종료했습니다."));
     }
 
     public Study getStudyToUpdate(Account account, String path) {
@@ -87,6 +89,7 @@ public class StudyService {
 
     public void updateStudyDescription(Study study, StudyDescriptionForm studyDescriptionForm) {
         modelMapper.map(studyDescriptionForm, study);
+        eventPublisher.publishEvent(new StudyUpdateEvent(study, "스터디 소개를 수정했습니다."));
     }
 
     public void updateStudyImage(Study study, String image) {
@@ -97,7 +100,7 @@ public class StudyService {
         study.setUseBanner(true);
     }
 
-    public void disableStudyBanner(Study study) {
+    public void disableStudyBanner(Study study)  {
         study.setUseBanner(false);
     }
 
@@ -119,10 +122,12 @@ public class StudyService {
 
     public void startRecruit(Study study) {
         study.startRecruit();
+        eventPublisher.publishEvent(new StudyUpdateEvent(study, "팀원 모집을 시작합니다."));
     }
 
     public void stopRecruit(Study study) {
         study.stopRecruit();
+        eventPublisher.publishEvent(new StudyUpdateEvent(study, "팀원 모집을 종료했습니다."));
     }
 
     public boolean isValidPath(String newPath) {

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 public class StudyDescriptionForm {
 
     @NotBlank
-    @Length(max = 10)
+    @Length(max = 100)
     private String shortDescription;
 
     @NotBlank

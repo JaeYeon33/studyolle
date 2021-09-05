@@ -2,9 +2,9 @@ package com.jaeyeon.studyolle.modules.account;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jaeyeon.studyolle.modules.account.account.form.*;
-import com.jaeyeon.studyolle.modules.account.account.validator.NicknameValidator;
-import com.jaeyeon.studyolle.modules.account.account.validator.PasswordFormValidator;
+import com.jaeyeon.studyolle.modules.account.form.*;
+import com.jaeyeon.studyolle.modules.account.validator.NicknameValidator;
+import com.jaeyeon.studyolle.modules.account.validator.PasswordFormValidator;
 import com.jaeyeon.studyolle.modules.tag.Tag;
 import com.jaeyeon.studyolle.modules.tag.TagRepository;
 import com.jaeyeon.studyolle.modules.tag.TagService;

@@ -1,4 +1,4 @@
-package com.jaeyeon.studyolle.modules.account.account.form;
+package com.jaeyeon.studyolle.modules.account.form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

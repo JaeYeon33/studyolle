@@ -1,8 +1,8 @@
-package com.jaeyeon.studyolle.modules.account.account.validator;
+package com.jaeyeon.studyolle.modules.account.validator;
 
 import com.jaeyeon.studyolle.modules.account.Account;
 import com.jaeyeon.studyolle.modules.account.AccountRepository;
-import com.jaeyeon.studyolle.modules.account.account.form.NicknameForm;
+import com.jaeyeon.studyolle.modules.account.form.NicknameForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

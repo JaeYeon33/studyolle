@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaeyeon.studyolle.modules.account.Account;
 import com.jaeyeon.studyolle.modules.account.CurrentUser;
-import com.jaeyeon.studyolle.modules.account.account.form.TagForm;
+import com.jaeyeon.studyolle.modules.account.form.TagForm;
 import com.jaeyeon.studyolle.modules.study.form.StudyDescriptionForm;
 import com.jaeyeon.studyolle.modules.tag.Tag;
 import com.jaeyeon.studyolle.modules.tag.TagRepository;

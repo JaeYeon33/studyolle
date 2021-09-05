@@ -3,7 +3,7 @@ package com.jaeyeon.studyolle.modules.account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaeyeon.studyolle.infra.AbstractContainerBaseTest;
 import com.jaeyeon.studyolle.infra.MockMvcTest;
-import com.jaeyeon.studyolle.modules.account.account.form.TagForm;
+import com.jaeyeon.studyolle.modules.account.form.TagForm;
 import com.jaeyeon.studyolle.modules.tag.Tag;
 import com.jaeyeon.studyolle.modules.tag.TagRepository;
 import com.jaeyeon.studyolle.modules.zone.Zone;

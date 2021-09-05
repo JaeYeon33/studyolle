@@ -2,6 +2,8 @@ package com.jaeyeon.studyolle.modules.main;
 
 import com.jaeyeon.studyolle.modules.account.Account;
 import com.jaeyeon.studyolle.modules.account.CurrentUser;
+import com.jaeyeon.studyolle.modules.notification.NotificationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

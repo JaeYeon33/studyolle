@@ -4,7 +4,7 @@ import com.jaeyeon.studyolle.infra.AbstractContainerBaseTest;
 import com.jaeyeon.studyolle.infra.MockMvcTest;
 import com.jaeyeon.studyolle.modules.account.AccountRepository;
 import com.jaeyeon.studyolle.modules.account.AccountService;
-import com.jaeyeon.studyolle.modules.account.account.form.SignUpForm;
+import com.jaeyeon.studyolle.modules.account.form.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

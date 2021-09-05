@@ -1,6 +1,6 @@
 package com.jaeyeon.studyolle.modules.account;
 
-import com.jaeyeon.studyolle.modules.account.account.form.SignUpForm;
+import com.jaeyeon.studyolle.modules.account.form.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;

@@ -5,13 +5,17 @@ import com.jaeyeon.studyolle.modules.study.event.StudyCreatedEvent;
 import com.jaeyeon.studyolle.modules.study.event.StudyUpdateEvent;
 import com.jaeyeon.studyolle.modules.study.form.StudyDescriptionForm;
 import com.jaeyeon.studyolle.modules.tag.Tag;
+import com.jaeyeon.studyolle.modules.tag.TagRepository;
 import com.jaeyeon.studyolle.modules.zone.Zone;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.utility.RandomString;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
 
 import static com.jaeyeon.studyolle.modules.study.form.StudyForm.VALID_PATH_PATTERN;
 
@@ -23,6 +27,7 @@ public class StudyService {
     private final StudyRepository studyRepository;
     private final ModelMapper modelMapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final TagRepository tagRepository;
 
     public Study createNewStudy(Study study, Account account) {
         Study newStudy = studyRepository.save(study);

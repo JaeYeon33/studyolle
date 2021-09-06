@@ -51,6 +51,7 @@ public class Study {
     private boolean published;
     private boolean closed;
     private boolean useBanner;
+    private int memberCount;
 
     public String getImage() {
         return image != null ? image : "/images/default_banner.png";
@@ -124,10 +125,12 @@ public class Study {
 
     public void addMember(Account account) {
         this.getMembers().add(account);
+        this.memberCount++;
     }
 
     public void removeMember(Account account) {
         this.getMembers().remove(account);
+        this.memberCount--;
     }
 
     public boolean isManagedBy(Account account) {

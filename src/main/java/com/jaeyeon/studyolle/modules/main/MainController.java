@@ -1,7 +1,9 @@
 package com.jaeyeon.studyolle.modules.main;
 
 import com.jaeyeon.studyolle.modules.account.Account;
+import com.jaeyeon.studyolle.modules.account.AccountRepository;
 import com.jaeyeon.studyolle.modules.account.CurrentUser;
+import com.jaeyeon.studyolle.modules.event.EnrollmentRepository;
 import com.jaeyeon.studyolle.modules.notification.NotificationRepository;
 import com.jaeyeon.studyolle.modules.study.Study;
 import com.jaeyeon.studyolle.modules.study.StudyRepository;
@@ -21,13 +23,27 @@ import java.util.List;
 public class MainController {
 
     private final StudyRepository studyRepository;
+    private final AccountRepository accountRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
     @GetMapping("/")
     public String home(@CurrentUser Account account, Model model){
         if (account != null){
-            model.addAttribute(account);
+            Account accountLoaded = accountRepository.findAccountWithTagsAndZonesById(account.getId());
+            model.addAttribute(accountLoaded);
+            model.addAttribute("enrollmentList", enrollmentRepository.findByAccountAndAcceptedOrderByEnrolledAtDesc(accountLoaded, true));
+            model.addAttribute("studyList", studyRepository.findByAccount(
+                    accountLoaded.getTags(),
+                    accountLoaded.getZones()));
+            model.addAttribute("studyManagerOf",
+                    studyRepository.findFirst5ByManagersContainingAndClosedOrderByPublishedDateTimeDesc(account, false));
+            model.addAttribute("studyMemberOf",
+                    studyRepository.findFist5ByMembersContainingAndClosedOrderByPublishedDateTimeDesc(account, false));
+
+            return "index-after-login";
         }
 
+        model.addAttribute("studyList", studyRepository.findFirst9ByPublishedAndClosedOrderByPublishedDateTimeDesc(true, false));
         return "index";
     }
 

@@ -136,8 +136,9 @@ public class EventController {
     @DeleteMapping("/events/{id}")
     public String cancelEvent(@CurrentUser Account account,
                               @PathVariable String path,
-                              @PathVariable("id") Event event) {
+                              @PathVariable("id") Long id) {
         Study study = studyService.getStudyToUpdateStatus(account, path);
+        eventService.deleteEvent(eventRepository.findById(id).orElseThrow());
         return "redirect:/study/" + study.getEncodedPath() + "/events";
     }
 

@@ -100,10 +100,11 @@ public class EventController {
 
     @GetMapping("/events/{id}/edit")
     public String updateEventForm(@CurrentUser Account account,
-                                  @PathVariable String path, @PathVariable("id") Event event,
+                                  @PathVariable String path, @PathVariable("id") Long id,
                                   Model model) {
 
         Study study = studyService.getStudyToUpdate(account, path);
+        Event event = eventRepository.findById(id).orElseThrow();
         model.addAttribute(study);
         model.addAttribute(account);
         model.addAttribute(event);
@@ -113,10 +114,11 @@ public class EventController {
 
     @PostMapping("/events/{id}/edit")
     public String updateEventSubmit(@CurrentUser Account account,
-                                    @PathVariable String path, @PathVariable("id") Event event,
+                                    @PathVariable String path, @PathVariable("id") Long id,
                                     @Valid EventForm eventForm, Errors errors, Model model) {
 
         Study study = studyService.getStudyToUpdate(account, path);
+        Event event = eventRepository.findById(id).orElseThrow();
         eventForm.setEventType(event.getEventType());
         eventValidator.validateUpdateForm(eventForm, event, errors);
 
